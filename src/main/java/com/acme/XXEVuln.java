@@ -1,5 +1,6 @@
 package com.acme;
 
+import java.sql.PreparedStatement;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -28,10 +29,12 @@ public class XXEVuln {
         withDom(args[1]);
         withDomButDisabled(args[2]);
         withReaderFactory(null);
-
-        String sql = "select * from users where name= '" + args[0] + "'";
+        String sql = "select * from users where name= ?";
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/test");
-        conn.createStatement().executeQuery(sql);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, args[0]);
+        stmt.execute();
+
     }
 
     public static String docToString(final Document poDocument) throws TransformerException {
