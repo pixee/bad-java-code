@@ -2,7 +2,6 @@ package com.enterprise.data;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 import java.util.logging.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -34,7 +33,7 @@ public class EnterpriseDataAccess {
         }
     }
 
-	public JustCallManySimpleQueries() {
+	public void JustCallManySimpleQueries() {
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "user", "password");
             Statement stmt = conn.createStatement();
@@ -59,7 +58,7 @@ public class EnterpriseDataAccess {
 
             // Example 3: Blind SQL Injection
             // Password: "test@example.com' AND 1=0 UNION SELECT 'admin', 'password'"
-            String email = "";  'admin', 'password'" to exploit
+            String email = ""; // 'admin', 'password'" to exploit
             String query3 = "SELECT * FROM users WHERE email = '" + email + "'";
             ResultSet rs3 = stmt.executeQuery(query3);
             while (rs3.next()) {
@@ -83,7 +82,7 @@ public class EnterpriseDataAccess {
             stmt.executeUpdate(query5);
 			
 			//Example 6: With Nested Query and Join operation
-			String username = "admin";             // User input
+//			String username = "admin";             // User input
 			String roleName = "manager";           // User input
 			String departmentName = "IT";          // User input
 			String startDate = "2023-01-01";       // User input
@@ -104,13 +103,13 @@ public class EnterpriseDataAccess {
                "LIMIT " + limit + " OFFSET " + offset;
 			   
 			//Example 7: Query with SQL Functions   
-			DECLARE @tableName NVARCHAR(50);
-			SET @tableName = 'users'; -- This should be user input
-
-			DECLARE @sql NVARCHAR(MAX);
-			SET @sql = N'SELECT * FROM ' + @tableName;
-
-			EXEC(@sql);  -- Vulnerable to SQL injection
+//			DECLARE @tableName NVARCHAR(50);
+//			SET @tableName = 'users'; -- This should be user input
+//
+//			DECLARE @sql NVARCHAR(MAX);
+//			SET @sql = N'SELECT * FROM ' + @tableName;
+//
+//			EXEC(@sql);  -- Vulnerable to SQL injection
 	
 
             conn.close();
