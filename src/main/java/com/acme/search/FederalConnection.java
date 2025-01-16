@@ -1,5 +1,6 @@
 package com.acme.search;
 
+import java.sql.PreparedStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +22,10 @@ public class FederalConnection {
         // connect to the federal database
         Connection conn = fedConnectionLoader.getConnection();
         // search the forecasts table for entries with the given query
-        String query = "SELECT * FROM forecasts WHERE entry_desc LIKE '%" + searchTerm + "%'";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
+        String query = "SELECT * FROM forecasts WHERE entry_desc LIKE ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, "%" + searchTerm + "%");
+        ResultSet rs = stmt.execute();
         List<String> ids = new ArrayList<>();
         while(rs.next()) {
             String id = rs.getString("entry_id");
