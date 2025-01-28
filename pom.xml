@@ -12,7 +12,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.organization>pixee</sonar.organization>
-  </properties>
+  <versions.java-security-toolkit>1.2.1</versions.java-security-toolkit>
+ </properties>
 
   <dependencyManagement>
     <dependencies>
@@ -31,7 +32,7 @@
       <dependency>
         <groupId>io.github.pixee</groupId>
         <artifactId>java-security-toolkit</artifactId>
-        <version>1.2.0</version>
+        <version>${versions.java-security-toolkit}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
