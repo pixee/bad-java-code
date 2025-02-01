@@ -1,5 +1,6 @@
 package com.acme.reflection;
 
+import io.github.pixee.security.Reflection;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
@@ -22,7 +23,7 @@ public class UnsafeReflection {
   private static TranslatorStrategy loadTranslatorByName(final String translationStrategy) {
     final Class<?> translatorClazz;
     try {
-      translatorClazz = Class.forName("com.acme." + translationStrategy);
+      translatorClazz = Reflection.loadAndVerify("com.acme." + translationStrategy);
     } catch (ClassNotFoundException e) {
       throw new IllegalArgumentException("Invalid translator: " + translationStrategy, e);
     }
