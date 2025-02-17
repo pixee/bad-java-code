@@ -5,6 +5,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.QueryParam;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -12,8 +13,9 @@ import java.sql.Statement;
 public class SQLInjectionVuln {
     @GET
     public String lookupResource(Connection connection, @QueryParam("resource") final String resource) throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.executeQuery("select * from users where name = '" + resource + "'");
+        PreparedStatement statement = connection.prepareStatement("select * from users where name = ?");
+        statement.setString(1, resource);
+        statement.executeQuery();
         return "ok";
     }
 }
