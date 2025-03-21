@@ -7,7 +7,6 @@ import jakarta.ws.rs.QueryParam;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 @Path("/unsafe-jndi-lookup")
