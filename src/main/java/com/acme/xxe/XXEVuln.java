@@ -1,5 +1,6 @@
 package com.acme.xxe;
 
+import javax.xml.XMLConstants;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -33,6 +34,7 @@ public class XXEVuln {
 
   public static String docToString(final Document poDocument) throws TransformerException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
     Transformer transformer = transformerFactory.newTransformer();
     DOMSource domSrc = new DOMSource(poDocument);
     StringWriter sw = new StringWriter();
@@ -44,6 +46,8 @@ public class XXEVuln {
   public static void saxTransformer(String xml)
       throws ParserConfigurationException, SAXException, IOException {
     SAXParserFactory spf = SAXParserFactory.newInstance();
+    spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+    spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     spf.setValidating(true);
 
     SAXParser saxParser = spf.newSAXParser();
@@ -54,6 +58,8 @@ public class XXEVuln {
   public static Document withDom(String xml)
       throws ParserConfigurationException, IOException, SAXException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+    dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     DocumentBuilder db = dbf.newDocumentBuilder();
     return db.parse(new InputSource(new StringReader(xml)));
   }
@@ -61,7 +67,8 @@ public class XXEVuln {
   public static Document withDomButDisabled(String xml)
       throws ParserConfigurationException, IOException, SAXException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setExpandEntityReferences(true);
+    dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+    dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
     DocumentBuilder db = dbf.newDocumentBuilder();
     return db.parse(new InputSource(new StringReader(xml)));
   }

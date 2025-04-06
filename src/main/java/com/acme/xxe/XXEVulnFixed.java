@@ -35,6 +35,7 @@ public class XXEVulnFixed {
   public static String docToString(final Document poDocument) throws TransformerException {
     TransformerFactory transformerFactory = TransformerFactory.newInstance();
     transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+    transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
     Transformer transformer = transformerFactory.newTransformer();
     DOMSource domSrc = new DOMSource(poDocument);
     StringWriter sw = new StringWriter();
