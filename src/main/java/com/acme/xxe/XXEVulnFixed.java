@@ -46,8 +46,8 @@ public class XXEVulnFixed {
   public static void saxTransformer(String xml)
       throws ParserConfigurationException, SAXException, IOException {
     SAXParserFactory spf = SAXParserFactory.newInstance();
-    spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    spf.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_GENERAL_ENTITIES, false);
+    spf.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_PARAMETER_ENTITIES, false);
     spf.setValidating(true);
 
     SAXParser saxParser = spf.newSAXParser();
@@ -58,8 +58,8 @@ public class XXEVulnFixed {
   public static Document withDom(String xml)
       throws ParserConfigurationException, IOException, SAXException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    dbf.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_GENERAL_ENTITIES, false);
+    dbf.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_PARAMETER_ENTITIES, false);
     DocumentBuilder db = dbf.newDocumentBuilder();
     return db.parse(new InputSource(new StringReader(xml)));
   }
@@ -67,8 +67,8 @@ public class XXEVulnFixed {
   public static Document withDomButDisabled(String xml)
       throws ParserConfigurationException, IOException, SAXException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    dbf.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_GENERAL_ENTITIES, false);
+    dbf.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_PARAMETER_ENTITIES, false);
     dbf.setExpandEntityReferences(true);
     DocumentBuilder db = dbf.newDocumentBuilder();
     return db.parse(new InputSource(new StringReader(xml)));
@@ -77,8 +77,12 @@ public class XXEVulnFixed {
   public static void withReaderFactory(String xml)
       throws IOException, SAXException {
     XMLReader reader = XMLReaderFactory.createXMLReader();
-    reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
-    reader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    reader.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_GENERAL_ENTITIES, false);
+    reader.setFeature(HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_PARAMETER_ENTITIES, false);
     reader.parse(new InputSource(new StringReader(xml)));
   }
+  
+  private static final String HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+  
+  private static final String HTTP_XML_ORG_SAX_FEATURES_EXTERNAL_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
 }
